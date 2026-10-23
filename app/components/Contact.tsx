@@ -135,7 +135,7 @@ export default function Contact() {
         </div>
 
         {/* Right: Contact form */}
-        <div className="rounded-3xl border border-gray-500 mb-5 bg-white shadow-xl shadow-gray-200/50 sm:p-9">
+        <div className="rounded-3xl border border-gray-500 mb-5 p-6 bg-white shadow-xl shadow-gray-200/50 sm:p-9">
           <div className="mb-2">
             <h3 className="text-2xl font-bold text-gray-900">
               Send me a message with EmailJS api
