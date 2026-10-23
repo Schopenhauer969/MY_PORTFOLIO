@@ -1,0 +1,326 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Fluid spacing tokens -> px-gutter, py-section, pt-section, ...
+   They scale smoothly with the viewport instead of using fixed values. */
+@theme {
+  --spacing-gutter: clamp(1rem, 4vw, 2.5rem);
+  --spacing-section: clamp(3rem, 7vw, 5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  overflow-x: clip;
+}
+[id] {
+  scroll-margin-top: 4rem;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+@font-face {
+  font-family: "Waffles";
+  src: url("./assets/Super\ Waffles.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.name {
+  font-family: "Waffles";
+  font-size: 1.875rem;
+  line-height: 1.2;
+}
+/* ==========================================
+   MAIN GLITCH
+========================================== */
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    filter: none;
+    clip-path: circle(50%);
+  }
+
+  10% {
+    transform: translate(-8px, 3px) skewX(4deg);
+    filter: drop-shadow(6px 0 #ff0055) drop-shadow(-6px 0 #00e5ff);
+    clip-path: inset(10% 0 70% 0);
+  }
+
+  20% {
+    transform: translate(8px, -3px);
+    filter: drop-shadow(-8px 0 #ff0055) drop-shadow(8px 0 #00e5ff);
+    clip-path: inset(55% 0 20% 0);
+  }
+
+  30% {
+    transform: translate(-5px, 2px);
+    filter: drop-shadow(5px 0 #00ff88) drop-shadow(-5px 0 #ff0055);
+    clip-path: inset(20% 0 45% 0);
+  }
+
+  40% {
+    transform: translate(7px, -4px) skewX(-5deg);
+    filter: drop-shadow(-7px 0 #00e5ff) drop-shadow(7px 0 #ff0055);
+    clip-path: inset(65% 0 5% 0);
+  }
+
+  50% {
+    transform: translate(-4px, 3px);
+    filter: drop-shadow(8px 0 #ff0055) drop-shadow(-8px 0 #00e5ff);
+    clip-path: inset(35% 0 35% 0);
+  }
+
+  60% {
+    transform: translate(5px, -2px);
+    filter: drop-shadow(-5px 0 #00ff88) drop-shadow(5px 0 #ff0055);
+    clip-path: inset(5% 0 60% 0);
+  }
+
+  70% {
+    transform: translate(-6px, 3px);
+    filter: drop-shadow(6px 0 #00e5ff) drop-shadow(-6px 0 #ff0055);
+    clip-path: inset(50% 0 15% 0);
+  }
+
+  80% {
+    transform: translate(4px, -2px) skewX(3deg);
+    filter: drop-shadow(-4px 0 #00e5ff) drop-shadow(4px 0 #ff0055);
+    clip-path: inset(25% 0 40% 0);
+  }
+
+  90% {
+    transform: translate(-2px, 1px);
+    filter: drop-shadow(3px 0 #ff0055) drop-shadow(-3px 0 #00e5ff);
+    clip-path: inset(70% 0 5% 0);
+  }
+
+  100% {
+    transform: translate(0);
+    filter: none;
+    clip-path: circle(50%);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.45s steps(2, end) both;
+}
+
+/* ==========================================
+   RED GLITCH
+========================================== */
+
+@keyframes glitchRed {
+  0% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+
+  20% {
+    transform: translate(-12px, 2px);
+    clip-path: inset(15% 0 60% 0);
+  }
+
+  40% {
+    transform: translate(8px, -3px);
+    clip-path: inset(60% 0 15% 0);
+  }
+
+  60% {
+    transform: translate(-6px, 2px);
+    clip-path: inset(30% 0 40% 0);
+  }
+
+  80% {
+    transform: translate(10px, -2px);
+    clip-path: inset(70% 0 5% 0);
+  }
+
+  100% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+}
+
+.animate-glitch-red {
+  animation: glitchRed 0.4s steps(2, end);
+  filter: sepia(1) saturate(8) hue-rotate(300deg);
+}
+
+/* ==========================================
+   BLUE GLITCH
+========================================== */
+
+@keyframes glitchBlue {
+  0% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+
+  20% {
+    transform: translate(12px, -2px);
+    clip-path: inset(55% 0 20% 0);
+  }
+
+  40% {
+    transform: translate(-8px, 3px);
+    clip-path: inset(10% 0 65% 0);
+  }
+
+  60% {
+    transform: translate(6px, -2px);
+    clip-path: inset(40% 0 30% 0);
+  }
+
+  80% {
+    transform: translate(-10px, 2px);
+    clip-path: inset(5% 0 70% 0);
+  }
+
+  100% {
+    transform: translate(0);
+    clip-path: inset(0);
+  }
+}
+
+.animate-glitch-blue {
+  animation: glitchBlue 0.4s steps(2, end);
+  filter: sepia(1) saturate(8) hue-rotate(160deg);
+}
+
+/* ==========================================
+   SCANLINES
+========================================== */
+
+.glitch-lines {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 4px,
+    rgba(255, 255, 255, 0.15) 5px,
+    transparent 6px
+  );
+
+  animation: scanlines 0.12s linear infinite;
+}
+
+@keyframes scanlines {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(8px);
+  }
+}
+
+/* ==========================================
+   NOISE
+========================================== */
+
+.glitch-noise {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.08) 0px,
+    transparent 1px,
+    transparent 3px
+  );
+
+  mix-blend-mode: overlay;
+
+  animation: noise 0.1s steps(2) infinite;
+}
+
+@keyframes noise {
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(3px, -2px);
+  }
+
+  50% {
+    transform: translate(-2px, 3px);
+  }
+
+  75% {
+    transform: translate(2px, 2px);
+  }
+
+  100% {
+    transform: translate(-3px, -1px);
+  }
+}
+
+/* ==========================================
+   OUTER CIRCLE ROTATION
+========================================== */
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+/* ==========================================
+   REVERSE ROTATION
+========================================== */
+
+@keyframes reverseSpin {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-reverse-spin {
+  animation: reverseSpin 18s linear infinite;
+}
+
+/* ==========================================
+   BLINK (status dot)
+========================================== */
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 0.8s step-end infinite;
+}
