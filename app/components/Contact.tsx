@@ -48,7 +48,7 @@ export default function Contact() {
     "w-full rounded-xl border-2 border-gray-400 bg-white px-4 py-2 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-900 focus:ring-4 focus:ring-blue-900/10";
 
   return (
-    <section id="contact" className="relative overflow-hidden pt-10 px-gutter">
+    <section id="contact" className="relative overflow-hidden px-gutter">
       <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-blue-300/30 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-purple-300/30 blur-3xl" />
 

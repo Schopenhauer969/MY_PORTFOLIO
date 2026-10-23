@@ -19,6 +19,7 @@ const skillImages = [
   { src: Html, name: "HTML" },
   { src: Css, name: "CSS" },
   { src: Js, name: "JavaScript" },
+  { src: Type, name: "Type" },
   { src: Java, name: "Java" },
   { src: React, name: "React" },
   { src: Angular, name: "Angular" },
@@ -26,7 +27,6 @@ const skillImages = [
   { src: C, name: "C" },
   { src: Cpp, name: "Cpp" },
   { src: Csharp, name: "Csharp" },
-  { src: Type, name: "Type" },
 ];
 
 const S3 = () => {
