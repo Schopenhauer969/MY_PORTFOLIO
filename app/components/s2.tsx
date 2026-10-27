@@ -22,11 +22,7 @@ const S2 = () => {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="px-gutter py-section lg:pb-30"
-    >
+    <section ref={sectionRef} id="about" className="px-gutter py-section">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 md:flex-row md:gap-12 lg:gap-20 lg:pb-10">
         {/* Image */}
         <div className="flex w-full max-w-xs items-center justify-center md:w-[35%] md:max-w-none">
