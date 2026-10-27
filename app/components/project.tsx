@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const projects = [
   {
@@ -15,24 +15,6 @@ const projects = [
   },
   {
     title: "Cosmetic Stock Controls",
-    description:
-      "A complete, working full-stack app: Node.js + Express + MongoDB (Mongoose) backend with a plain HTML/CSS/JS frontend. Every page (Categories, Inventory, Suppliers, Purchases, Sales) does real Create / Read / Update / Delete",
-    tags: ["Javascript", "Express", "Node.js", "MongoDB"],
-    liveUrl: "https://crud-stock-control-1.onrender.com",
-    githubUrl: "https://github.com/Schopenhauer969/CRUD-Stock-Control",
-    image: "/sale.png",
-  },
-  {
-    title: "Cosmetic Stock Controls2",
-    description:
-      "A complete, working full-stack app: Node.js + Express + MongoDB (Mongoose) backend with a plain HTML/CSS/JS frontend. Every page (Categories, Inventory, Suppliers, Purchases, Sales) does real Create / Read / Update / Delete",
-    tags: ["Javascript", "Express", "Node.js", "MongoDB"],
-    liveUrl: "https://crud-stock-control-1.onrender.com",
-    githubUrl: "https://github.com/Schopenhauer969/CRUD-Stock-Control",
-    image: "/sale.png",
-  },
-  {
-    title: "Cosmetic Stock Controls1",
     description:
       "A complete, working full-stack app: Node.js + Express + MongoDB (Mongoose) backend with a plain HTML/CSS/JS frontend. Every page (Categories, Inventory, Suppliers, Purchases, Sales) does real Create / Read / Update / Delete",
     tags: ["Javascript", "Express", "Node.js", "MongoDB"],
@@ -59,7 +41,9 @@ const btnBase =
 
 export default function ProjectShowcase() {
   const [expanded, setExpanded] = useState(false);
+  const footerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const didToggle = useRef(false); // skip the scroll effect on first render
   const gridId = useId();
 
   const hasMore = projects.length > INITIAL_VISIBLE;
@@ -68,20 +52,48 @@ export default function ProjectShowcase() {
   const hiddenCount = projects.length - INITIAL_VISIBLE;
 
   function toggle() {
-    const collapsing = expanded;
-    setExpanded(!expanded);
-
-    // After collapsing, bring the top of the list back into view so the
-    // reader isn't left stranded far below the (now shorter) grid.
-    if (collapsing) {
-      requestAnimationFrame(() =>
-        gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
-      );
-    }
+    didToggle.current = true;
+    setExpanded((prev) => !prev);
   }
 
+  // Runs after the DOM has updated, so the new cards actually exist.
+  useEffect(() => {
+    if (!didToggle.current) return;
+
+    const id = requestAnimationFrame(() => {
+      if (expanded) {
+        // Show more: scroll to the first newly revealed project
+        gridRef.current
+          ?.querySelector<HTMLElement>("[data-first-extra]")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        // Show less: keep the top project AND the "Show more" button visible.
+        const grid = gridRef.current;
+        const footer = footerRef.current;
+        if (!grid || !footer) return;
+
+        const NAV_OFFSET = 80; // space for a fixed navbar
+        const GAP = 16;
+        const gridTop = grid.getBoundingClientRect().top + window.scrollY;
+        const footerBottom =
+          footer.getBoundingClientRect().bottom + window.scrollY;
+        const viewport = window.innerHeight;
+
+        // If the grid + button fit on screen (desktop), show from the top
+        // project down to the button. If not (stacked cards on mobile),
+        // make sure the button is visible at the bottom of the screen.
+        const fits = footerBottom - gridTop <= viewport - NAV_OFFSET - GAP;
+        const top = fits ? gridTop - NAV_OFFSET : footerBottom - viewport + GAP;
+
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+    });
+
+    return () => cancelAnimationFrame(id);
+  }, [expanded]);
+
   return (
-    <section className="mx-auto max-w-7xl lg:py-0 ">
+    <section className="mx-auto max-w-7xl lg:pb-15">
       {/* Section Header */}
       <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14 lg:mb-4">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
@@ -107,7 +119,8 @@ export default function ProjectShowcase() {
           return (
             <div
               key={project.title}
-              className={`w-full max-w-96 ${extra ? "animate-card-in" : ""}`}
+              data-first-extra={i === INITIAL_VISIBLE ? "" : undefined}
+              className={`w-full max-w-96 scroll-mt-24 ${extra ? "animate-card-in" : ""}`}
               style={
                 extra
                   ? { animationDelay: `${(i - INITIAL_VISIBLE) * 90}ms` }
@@ -226,7 +239,10 @@ export default function ProjectShowcase() {
 
       {/* Show more / Show less - only rendered when there are more than 3 */}
       {hasMore && (
-        <div className="mt-10 flex flex-col items-center gap-3 sm:mt-12 lg:mb-20 ">
+        <div
+          ref={footerRef}
+          className="mt-10 flex flex-col items-center gap-3 sm:mt-12 lg:mb-20 "
+        >
           <button
             type="button"
             onClick={toggle}

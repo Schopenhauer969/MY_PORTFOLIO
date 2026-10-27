@@ -20,7 +20,7 @@ const Section4 = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="">
+    <section id="projects" ref={sectionRef}>
       <div className="mx-auto w-full max-w-7xl">
         <div
           className={`w-full transition-[opacity,translate,scale] duration-700 ease-out motion-reduce:transition-none ${
