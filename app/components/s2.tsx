@@ -25,7 +25,7 @@ const S2 = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="px-gutter py-section lg:pt-10 lg:pb-10"
+      className="px-gutter py-section lg:pb-40"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8 md:flex-row md:gap-12 lg:gap-20 lg:pb-10">
         {/* Image */}
