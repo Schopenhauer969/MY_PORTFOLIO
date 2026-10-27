@@ -93,7 +93,7 @@ export default function ProjectShowcase() {
   }, [expanded]);
 
   return (
-    <section className="mx-auto max-w-7xl lg:pb-15">
+    <section className="mx-auto max-w-7xl lg:pb-25">
       {/* Section Header */}
       <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14 lg:mb-4">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
