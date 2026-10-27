@@ -22,7 +22,11 @@ const S3 = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="skills" className="px-gutter py-section ">
+    <section
+      ref={sectionRef}
+      id="skills"
+      className="px-gutter py-section lg:pb-50"
+    >
       <div className="mx-auto w-full max-w-7xl items-center gap-8 lg:grid-cols-10 lg:gap-10 lg:w-10000">
         {/* Left Column - Skills */}
         <div
